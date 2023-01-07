@@ -1,0 +1,49 @@
+USE employee;
+
+CREATE TABLE employees (
+    employee_name VARCHAR(255) PRIMARY KEY,
+    street VARCHAR(255),
+    city VARCHAR(255)
+);
+
+CREATE TABLE works (
+    employee_name VARCHAR(255) PRIMARY KEY,
+    company_name VARCHAR(255),
+    salary INT,
+    FOREIGN KEY (employee_name) REFERENCES employees(employee_name)
+);
+
+CREATE TABLE companies (
+    company_name VARCHAR(255) PRIMARY KEY,
+    city VARCHAR(255)
+);
+
+CREATE TABLE manages (
+    employee_name VARCHAR(255) PRIMARY KEY,
+    manager_name VARCHAR(255),
+    FOREIGN KEY (employee_name) REFERENCES employees(employee_name),
+    FOREIGN KEY (manager_name) REFERENCES employees(employee_name)
+);
+
+
+INSERT INTO employees (employee_name, street, city)
+VALUES ('Ram', 'New Baneshwor', 'Kathmandu'),
+       ('Shyam', 'Thapathali', 'Kathmandu'),
+       ('Hari', 'Sanothimi', 'Bhaktapur'),
+       ('Sita', 'Pulchowk', 'Lalitpur');
+
+INSERT INTO works (employee_name, company_name, salary)
+VALUES ('Ram', 'First Bank Corporation', 50000),
+       ('Shyam', 'First Bank Corporation', 60000),
+       ('Hari', 'Small Bank Corporation', 40000),
+       ('Sita', 'second Bank Corporation', 65000);
+
+INSERT INTO companies (company_name, city)
+VALUES ('First Bank corporation', 'Kathmandu'),
+       ('Small Bank Corporation', 'Kathmandu'),
+       ('First Bank Corporation', 'Kathmandu');
+
+INSERT INTO manages (employee_name, manager_name)
+VALUES ('Ram', 'Shyam'),
+       ('Hari', 'Shyam'),
+       ('Sita', 'Ram');

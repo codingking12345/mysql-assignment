@@ -1,0 +1,31 @@
+-- 3a
+UPDATE employees
+SET city = 'Newtown'
+WHERE employee_name LIKE('Jones%');
+
+-- 3b
+UPDATE works
+SET salary = salary + (salary * 0.1) 
+WHERE company_name = 'First Bank Corporation';
+
+-- 3c
+UPDATE works, manages
+SET salary = salary + (salary * 0.1)
+WHERE works.employee_name = manages.employee_name AND works.company_name = 'First Bank Corporation';
+
+-- 3d
+UPDATE works, manages
+SET salary = 
+    CASE 
+        WHEN salary * 1.1 <= 100000 THEN salary * 1.1 
+        ELSE salary * 1.03 
+    END
+WHERE works.employee_name = manages.employee_name
+		AND works.company_name = 'First Bank Corporation';
+
+-- 3e 
+DELETE employees, manages
+FROM works
+LEFT JOIN employees ON employees.employee_name = works.employee_name
+LEFT JOIN manages ON manages.manager_name = works.employee_name
+WHERE works.company_name = 'First Bank Corporation';
